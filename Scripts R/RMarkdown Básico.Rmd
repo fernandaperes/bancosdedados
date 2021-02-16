@@ -1,0 +1,183 @@
+---
+title: "Estrutura Básica do RMarkdown"
+author: "Fernanda Fiel Peres"
+date: "21/07/2020"
+output: html_document
+---
+
+# Elementos básicos do RMarkdown
+  
+## Títulos
+  
+Os títulos são definidos pela presença e pela quantidade de #.  
+Um único # define o título 1 (o maior na hierarquia), dois # definem o título 2, e assim sucessivamente.  
+`# Título 1`  
+`## Título 2`  
+  
+  
+## Formatação
+* Para que duas frases fiquem em linhas separadas, dê dois espaços entre elas;
+* Os dois espaços funcionam também para deixar uma linha em branco;
+* Para deixar uma palavra em **negrito**, coloque-a entre quatro asteriscos: `**negrito**`
+* Para deixar uma palavra em *itálico*, coloque-a entre dois asteriscos: `*itálico*`
+* Para deixar caracteres ^sobrescritos^, coloque-os entre acentos circunflexos: `^1^`
+* Para deixar caracteres ~subscritos~, coloque-os entre til: `~1~`
+* Para destacar um termo como `código`, coloque-o entre crases (backticks): `` `código` ``
+* Para criar uma citação (quote), escreva o texto após um sinal de maior: `> Citação`
+
+> Citação
+  
+  
+  
+## Adicionando links, imagens e notas de rodapé
+
+### Adicionando links:
+`[Nome do Link](Endereço do Link)`  
+  
+**Exemplo:**  
+[Canal do YouTube](https://youtube.com/c/FernandaPeres)
+  
+  
+### Adicionando imagens
+`![Legenda](Endereço da Imagem)`  
+  
+**Exemplo:**  
+![Logo do RMarkdown](https://miro.medium.com/max/600/1*sCJzUnDilAuvGrlllJeXKw.jpeg){ width=35% }
+
+### Criando notas de rodapé (clicáveis)
+
+Há duas opções:  
+  
+1. Escrever ao final do texto `[^1]` e então (pode ser logo abaixo, ou depois) escrever a nota de rodapé:  
+"Essa informação não é um consenso `[^1]`"  
+`[^1]: Esta é uma nota de rodapé.`  
+  
+  
+2. Colocar a informação da nota de rodapé no meio do texto, e o R numerará automaticamente:  
+"Essa informação não é um consenso `^[Esta é uma nota de rodapé]`"
+  
+  
+**Exemplo:**  
+  
+O RMarkdown é uma ferramenta excelente para documentar seus códigos e apresentar os resultados. As muitas funcionalidades dele são descritas detalhadamente no livro R Markdown: The Definitive Guide [^1].
+
+[^1]: R Markdown: The Definitive Guide. Yihui Xie, J. J. Allaire, Garrett Grolemund. Disponível em: <https://bookdown.org/yihui/rmarkdown/>
+
+
+## Criando listas
+
+### Listas não-ordenadas:
+Usamos asterisco para criar o item, sinal de adição para criar o subitem e traço para criar o sub-subitem. A cada nível devem ser dados 4 espaços antes.  
+`* Item`  
+`    + Subitem`  
+`        - Sub-subitem`
+  
+**Exemplo:**
+  
+* Item 1
+    + Subitem 1
+    + Subitem 2
+        - Sub-subitem 1
+* Item 2
+* Item 3
+  
+  
+### Listas ordenadas:
+`1. Item`  
+`    i) Subitem`  
+`        A. Sub-subitem`
+  
+**Exemplo:**
+  
+1. Item 1
+    i) Subitem 1
+    ii) Subitem 2  
+        A. Sub-subitem 1
+2. Item 2
+3. Item 3
+
+
+## Adicionando equações
+As equações no RMarkdown são escritas com a linguagem LaTeX.  
+  
+Para que a equação apareça no meio do texto, devemos escrevê-la entre dois cifrões: `$equação$`
+  
+"Esse cálculo é realizado pela equação $\sum_{i = 1} (x_i - \mu)^2$, como comentado no item anterior."
+  
+Para que a equação apareça no formato destacado (display), deve ser colocada entre quatro cifrões:  
+`$$equação$$`
+  
+Esse cálculo é realizado através da equação abaixo:
+$$\sum_{i=1}^{n}\left( \frac{X_i}{Y_i} \right)$$
+
+# Incluindo códigos R
+
+Para adicionar qualquer código em R, devemos iniciar com três crases, seguidas por `{r}` e para encerrar o bloco de código, devemos fechá-lo com outras três crases.  
+
+
+**Exemplos:**  
+  
+```{r pacotes}
+library(dplyr)
+library(rstatix)
+```
+
+```{r carregamento do banco de dados}
+dados <- read.csv2("Banco de Dados 6.csv")
+glimpse(dados)
+```
+  
+  
+Visualização do banco de dados (desformatado)
+```{r visualização do banco}
+head(dados, 10)
+```
+  
+Visualização em tabela (das 10 primeiras entradas)
+```{r}
+library(knitr)
+kable(head(dados, 10))
+```
+  
+Visualização em tabela (todas as entradas, separadas em páginas)
+```{r}
+library(rmarkdown)
+paged_table(dados)
+```
+  
+  
+**Opções para o "chunk":**  
+
+* `eval = FALSE`: Exclui o resultado, mas não a fórmula 
+* `echo = FALSE`: Exclui a fórmula, mas não o resultado  
+* `include = FALSE`: Exclui o resultado e a fórmula, mas o chunk ainda é rodado  
+* `message = FALSE`: Exclui as mensagens  
+* `warning = FALSE`: Exclui os avisos  
+  
+  
+Usando `eval = FALSE`:  
+```{r, eval = FALSE}
+boxplot(dados$Memoria ~ dados$Genero)
+```
+  
+  
+Usando `echo = FALSE`:  
+```{r, echo = FALSE}
+boxplot(dados$Memoria ~ dados$Alcool)
+```
+  
+  
+Usando `include = FALSE`:  
+```{r, include = FALSE}
+boxplot(dados$Memoria ~ dados$Alcool)
+```
+  
+  
+Usando `warning = FALSE` e `message = FALSE`:  
+```{r, warning = FALSE, message = FALSE}
+library(car)
+```
+
+```{r}
+leveneTest(Memoria ~ Genero, dados)
+```

@@ -1,0 +1,201 @@
+---
+title: "ANOVA de duas vias no R"
+author: "Fernanda Fiel Peres"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+    html_document:
+       highlight: textmate
+       theme: flatly
+       number_sections: yes
+       toc: yes
+       toc_float:
+         collapsed: yes
+         smooth_scroll: no
+---
+
+  
+# Contextualização
+  
+O banco de dados analisado traz os resultados de um experimento realizado com homens e mulheres que consumiram ou não álcool (divididos em três grupos: não consumiu álcool, consumiu duas canecas, consumiu três canecas). Após esse consumo, foi avaliada a memória e a latência para a realização de uma tarefa cognitiva. Desejamos **avaliar se o consumo de álcool afetou a memória e se esse efeito depende do gênero**. Para isso, será realizada uma ANOVA de duas vias, com "Gênero" e "Consumo de Álcool" como variáveis independentes.
+  
+  
+# Carregamento dos pacotes
+  
+```{r Pacotes, message=FALSE, warning=FALSE}
+library(dplyr)                                
+library(car)                                
+library(rstatix)                                
+library(emmeans)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+library(htmltools)
+```
+  
+  
+# Leitura e visualização do banco de dados
+  
+```{r Leitura e tipos de variáveis}
+dados <- read.csv2('Banco de Dados 6.csv')
+glimpse(dados)
+```
+  
+
+```{r Visualização banco}
+kable(head(dados, 10), col.names = c("Gênero", "Álcool", "Memória", "Latência")) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+  
+  
+<br>
+O banco contém `r nrow(dados)` sujeitos experimentais, sendo `r nrow(dados[which(dados$Genero=="Feminino"),])` do gênero feminino.
+  
+  
+  
+## Ordenando a variável "Álcool"
+Colocar as categorias em uma ordem lógica (nenhum consumo, duas canecas e quatro canecas) vai facilitar a visualização dos dados no gráfico.
+```{r Ordenando álcool}
+dados$Alcool <- factor(dados$Alcool,
+                       levels = c("Nenhum",
+                                  "2 Canecas",
+                                  "4 Canecas"))
+```
+  
+  
+# Verificação dos pressupostos do modelo
+  
+## Normalidade
+A variável dependente ("Memória") deve apresentar distribuição aproximadamente normal dentro de cada grupo. Os grupos aqui serão formados pela combinação das duas variáveis independentes ("Gênero" e "Álcool"). A normalidade será avaliada pelo teste de Shapiro-Wilk.
+  
+```{r Shapiro por grupo}
+dados %>% group_by(Genero, Alcool) %>% 
+  shapiro_test(Memoria)
+```
+Todos os grupos apresentam distribuição normal (valores de p superiores a 0,05).
+  
+  
+## Ausência de *outliers*
+Outro pressuposto da ANOVA é a ausência de *outliers* em todos os grupos. Isso pode ser verificado através de um gráfico do tipo boxplot.
+  
+```{r Boxplot}
+boxplot(dados$Memoria ~ dados$Genero:dados$Alcool, ylab = "Memória", xlab = "Grupo",
+        names = c("F N", "M N", "F 2C", "M 2C", "F 4C", "M 4C"))
+```
+  
+Os gráficos mostram que não há *outliers* nos grupos analisados.
+  
+  
+## Homogeneidade de variâncias
+Outro pressuposto da ANOVA é que os grupos apresentem variâncias homogêneas. Esse pressuposto será analisado aqui pelo teste de Levene.
+
+```{r Levene}
+leveneTest(Memoria ~ Genero*Alcool, dados, center = mean)
+```
+  
+Os resultados indicam que as variâncias são homogêneas, uma vez que o teste de Levene apresentou p superior a 0,05.
+  
+  
+# Realização do teste de ANOVA de duas vias
+  
+## Trocando o tipo de contraste
+Para essa análise, será utilizado o contraste "soma".
+
+```{r contraste}
+options(contrasts = c("contr.sum", "contr.poly"))
+```
+  
+  
+## Criação do modelo de ANOVA
+Será criado um modelo de ANOVA usando a função `aov`. O modelo escolhido é um modelo fatorial completo, que inclui os efeitos principais das variáveis independentes "Gênero" e "Álcool" bem como a interação entre elas.
+  
+```{r Modelo ANOVA}
+mod.ANOVA <- aov(Memoria ~ Genero*Alcool, dados)
+```
+
+## Análise dos resultados do modelo
+Para avaliar a significância das variáveis independentes e da sua interação, será utilizada a soma de quadrados do tipo III. Mais informações sobre os tipos de soma dos quadrados podem ser encontradas no livro "Discovering Statistics Using R" [^1].
+
+[^1]: Field, A. P., Miles, J., & Field, Z. (2012). Discovering statistics using R.
+  
+```{r}
+Anova(mod.ANOVA, type = 'III')
+```
+  
+O resultado nos indica que há efeito do "Álcool" [F(2,42) = 20,07; p < 0,001] e da interação entre "Gênero" e "Álcool" [F(2,42) = 11,91; p < 0,001] sobre a memória. Dado que existe interação, os efeitos principais não devem ser interpretados. Para investigar melhor essa interação, será feito um gráfico de linhas.
+
+## Análise da interação entre "Gênero" e "Álcool" sobre a "Memória"
+  
+```{r Gráfico de linhas}
+ggplot(dados, aes(x = Alcool, y = Memoria, group = Genero, color = Genero)) +
+  geom_line(stat = "summary", fun.data = "mean_se", size = 0.6) +
+  geom_point(stat = "summary", fun.y = "mean") +
+  geom_errorbar(stat = "summary", fun.data = "mean_se", width = 0.2) +
+  ylab("Escore de memória") +
+  xlab("Consumo de álcool") +
+  labs(color = "Gênero")
+```
+  
+Pelo gráfico, parece que o consumo de álcool não afetou a memória entre as mulheres. Para os homens, o padrão indica que não houve diferença entre não consumir álcool e consumir duas canecas, mas que o consumo de quatro canecas reduziu o escore de memória.  
+Para verificar se essas diferenças são estatisticamente significativas, faremos comparações entre pares.  
+  
+  
+## Comparações entre pares
+  
+```{r EMMeans Genero}
+dados %>% group_by(Genero) %>% 
+  emmeans_test(Memoria ~ Alcool, p.adjust.method = "bonferroni")
+```
+
+```{r EMMeans Alcool}
+dados %>% group_by(Alcool) %>% 
+  emmeans_test(Memoria ~ Genero, p.adjust.method = "bonferroni")
+```
+  
+Os resultados da comparação entre pares confirmam a hipótese levantada com a análise do gráfico. Há diferença entre os gêneros no escore de memória apenas na condição na qual foram consumidas quatro canecas de álcool. Para o gênero feminino, não houve efeito do álcool sobre a memória. Já para o gênero masculino, o consumo de quatro canecas diminuiu o escore de memória.
+  
+  
+# Análise descritiva {.tabset .tabset-fade}
+
+## Médias e desvios
+```{r, echo=FALSE}
+resumo <- dados %>% group_by(Genero, Alcool) %>%
+                    get_summary_stats(Memoria, type = "mean_sd")
+
+kable(resumo,
+      col.names = c("Gênero", "Álcool", "Variável", "n", "Média", "Desvio Padrão")) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
+
+## Gráficos de dispersão por grupo
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+ggplot(dados, aes(x = Alcool:Genero, y = Memoria, color = Genero)) +
+  geom_point() +
+  geom_errorbar(stat = "summary", fun.data = "mean_se", width = 0.2) +
+  ylab("Escore de memória") +
+  xlab("Consumo de álcool") +
+  labs(color = "Gênero") +
+  scale_x_discrete(labels = c('F-N','M-N','F-2C','M-2C','F-4C','M-4C')) +
+  stat_summary(fun.y = mean, fun.ymin = mean, fun.ymax = mean,
+               geom="crossbar", width = 0.5, size = 0.1, show.legend = FALSE)
+```
+  
+<font size="2">Legenda: F = Feminino, M = Masculino, N = Nenhum consumo de álcool, 2C = Consumo de 2 canecas, 4C = Consumo de 4 Canecas.</font>
+
+  
+  
+# Material de Apoio
+  
+* Visualização dos tipos de "highlights": [Por Eran Aviv](https://eranraviv.com/syntax-highlighting-style-in-rmarkdown/)  
+* Visualização das opções de temas: [Por Andrew Zieffler](https://www.datadreaming.org/post/r-markdown-theme-gallery/)  
+* Dicas para personalização de tabelas pelo pacote `kableExtra`: [Por Hao Zhu](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html#html_only_features)  
+* Livro **completo** sobre RMarkdown: [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/)   
+* Material sobre RMarkdown em português: [RLadies BH](https://rladiesbh.com.br/)  
+  
+  
+# Créditos
+Material criado por **Fernanda F. Peres**.  
+
+* [Canal YouTube](https://youtube.com/c/FernandaPeres)  
+* [Página Estatística Aplicada no Instagram](https://instagram.com/estatisticaaplicada)  
+
