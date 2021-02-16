@@ -1,0 +1,168 @@
+ID;Voto;Etnia;ConfPol;LibEcon
+1;Outros;Caucasiano;3;3
+2;Hillary Clinton;Caucasiano;2;7
+3;Donald Trump;Caucasiano;7;1
+4;Donald Trump;Caucasiano;9;5
+5;Hillary Clinton;Caucasiano;2;6
+6;Donald Trump;Caucasiano;6;3
+7;Donald Trump;Caucasiano;6;3
+8;Hillary Clinton;Não-Caucasiano;6;10
+9;Donald Trump;Caucasiano;6;4
+10;Outros;Caucasiano;7;8
+11;Outros;Não-Caucasiano;4;2
+12;Donald Trump;Caucasiano;9;4
+13;Donald Trump;Caucasiano;10;3
+14;Hillary Clinton;Caucasiano;8;6
+15;Donald Trump;Caucasiano;4;1
+16;Donald Trump;Caucasiano;5;2
+17;Donald Trump;Caucasiano;1;2
+18;Hillary Clinton;Não-Caucasiano;3;7
+19;Outros;Caucasiano;7;8
+20;Donald Trump;Caucasiano;7;2
+21;Outros;Não-Caucasiano;1;1
+22;Hillary Clinton;Caucasiano;7;8
+23;Donald Trump;Caucasiano;1;1
+24;Outros;Não-Caucasiano;7;4
+25;Hillary Clinton;Caucasiano;1;8
+26;Hillary Clinton;Não-Caucasiano;10;6
+27;Outros;Caucasiano;3;5
+28;Donald Trump;Caucasiano;3;1
+29;Outros;Caucasiano;7;5
+30;Outros;Não-Caucasiano;6;1
+31;Hillary Clinton;Não-Caucasiano;3;8
+32;Donald Trump;Caucasiano;4;1
+33;Donald Trump;Caucasiano;6;2
+34;Outros;Caucasiano;7;5
+35;Donald Trump;Caucasiano;9;2
+36;Donald Trump;Caucasiano;6;4
+37;Hillary Clinton;Não-Caucasiano;1;9
+38;Donald Trump;Caucasiano;4;3
+39;Donald Trump;Caucasiano;2;6
+40;Hillary Clinton;Não-Caucasiano;5;7
+41;Hillary Clinton;Caucasiano;4;3
+42;Hillary Clinton;Caucasiano;10;3
+43;Outros;Caucasiano;3;1
+44;Donald Trump;Caucasiano;4;4
+45;Donald Trump;Caucasiano;9;2
+46;Donald Trump;Caucasiano;5;1
+47;Donald Trump;Caucasiano;1;2
+48;Hillary Clinton;Caucasiano;3;9
+49;Donald Trump;Caucasiano;5;2
+50;Donald Trump;Caucasiano;3;5
+51;Hillary Clinton;Caucasiano;10;9
+52;Hillary Clinton;Caucasiano;5;9
+53;Donald Trump;Não-Caucasiano;2;4
+54;Donald Trump;Caucasiano;4;7
+55;Hillary Clinton;Não-Caucasiano;2;8
+56;Donald Trump;Caucasiano;1;3
+57;Outros;Não-Caucasiano;3;8
+58;Hillary Clinton;Caucasiano;7;7
+59;Hillary Clinton;Não-Caucasiano;4;5
+60;Donald Trump;Não-Caucasiano;10;7
+61;Donald Trump;Caucasiano;8;6
+62;Donald Trump;Caucasiano;5;4
+63;Outros;Caucasiano;4;5
+64;Donald Trump;Caucasiano;1;3
+65;Outros;Caucasiano;6;7
+66;Outros;Caucasiano;5;4
+67;Hillary Clinton;Caucasiano;1;7
+68;Outros;Caucasiano;2;6
+69;Donald Trump;Caucasiano;2;2
+70;Hillary Clinton;Caucasiano;2;8
+71;Donald Trump;Caucasiano;10;2
+72;Hillary Clinton;Caucasiano;2;6
+73;Donald Trump;Caucasiano;6;1
+74;Outros;Caucasiano;6;3
+75;Donald Trump;Caucasiano;1;2
+76;Donald Trump;Caucasiano;10;1
+77;Donald Trump;Não-Caucasiano;2;6
+78;Hillary Clinton;Caucasiano;8;9
+79;Outros;Não-Caucasiano;3;6
+80;Outros;Caucasiano;5;7
+81;Outros;Não-Caucasiano;1;2
+82;Outros;Caucasiano;4;1
+83;Donald Trump;Caucasiano;10;2
+84;Donald Trump;Caucasiano;10;3
+85;Donald Trump;Caucasiano;4;4
+86;Outros;Não-Caucasiano;5;8
+87;Hillary Clinton;Caucasiano;10;4
+88;Donald Trump;Caucasiano;2;3
+89;Hillary Clinton;Caucasiano;8;7
+90;Donald Trump;Caucasiano;9;1
+91;Outros;Caucasiano;5;1
+92;Outros;Não-Caucasiano;1;6
+93;Hillary Clinton;Não-Caucasiano;10;6
+94;Hillary Clinton;Caucasiano;9;9
+95;Hillary Clinton;Caucasiano;5;4
+96;Hillary Clinton;Não-Caucasiano;10;8
+97;Hillary Clinton;Caucasiano;5;10
+98;Donald Trump;Caucasiano;10;4
+99;Outros;Caucasiano;3;8
+100;Outros;Caucasiano;5;5
+101;Donald Trump;Não-Caucasiano;8;1
+102;Donald Trump;Caucasiano;10;2
+103;Donald Trump;Caucasiano;9;4
+104;Hillary Clinton;Não-Caucasiano;3;6
+105;Donald Trump;Caucasiano;2;1
+106;Outros;Não-Caucasiano;1;1
+107;Hillary Clinton;Caucasiano;5;8
+108;Hillary Clinton;Não-Caucasiano;7;3
+109;Outros;Não-Caucasiano;3;6
+110;Outros;Não-Caucasiano;7;10
+111;Donald Trump;Caucasiano;10;4
+112;Donald Trump;Caucasiano;1;3
+113;Hillary Clinton;Caucasiano;5;10
+114;Hillary Clinton;Não-Caucasiano;4;4
+115;Donald Trump;Caucasiano;3;1
+116;Hillary Clinton;Caucasiano;10;6
+117;Hillary Clinton;Não-Caucasiano;6;8
+118;Donald Trump;Caucasiano;9;7
+119;Outros;Não-Caucasiano;7;4
+120;Donald Trump;Não-Caucasiano;3;7
+121;Donald Trump;Não-Caucasiano;10;7
+122;Hillary Clinton;Não-Caucasiano;4;3
+123;Hillary Clinton;Caucasiano;5;10
+124;Donald Trump;Caucasiano;10;4
+125;Hillary Clinton;Não-Caucasiano;8;3
+126;Donald Trump;Caucasiano;10;2
+127;Donald Trump;Caucasiano;9;6
+128;Hillary Clinton;Caucasiano;8;6
+129;Hillary Clinton;Não-Caucasiano;6;4
+130;Donald Trump;Caucasiano;3;4
+131;Hillary Clinton;Não-Caucasiano;10;10
+132;Hillary Clinton;Caucasiano;7;9
+133;Donald Trump;Caucasiano;7;7
+134;Hillary Clinton;Caucasiano;4;8
+135;Donald Trump;Caucasiano;8;3
+136;Outros;Não-Caucasiano;6;9
+137;Hillary Clinton;Caucasiano;5;6
+138;Hillary Clinton;Não-Caucasiano;1;8
+139;Donald Trump;Caucasiano;4;1
+140;Donald Trump;Caucasiano;1;1
+141;Hillary Clinton;Não-Caucasiano;7;8
+142;Donald Trump;Caucasiano;2;4
+143;Outros;Caucasiano;4;9
+144;Hillary Clinton;Não-Caucasiano;7;9
+145;Hillary Clinton;Caucasiano;4;10
+146;Outros;Caucasiano;1;2
+147;Hillary Clinton;Caucasiano;9;4
+148;Donald Trump;Caucasiano;1;2
+149;Donald Trump;Caucasiano;1;1
+150;Donald Trump;Caucasiano;3;3
+151;Outros;Não-Caucasiano;6;1
+152;Donald Trump;Caucasiano;6;2
+153;Hillary Clinton;Caucasiano;1;7
+154;Hillary Clinton;Caucasiano;6;8
+155;Donald Trump;Caucasiano;4;4
+156;Outros;Caucasiano;6;5
+157;Donald Trump;Caucasiano;2;7
+158;Donald Trump;Não-Caucasiano;2;4
+159;Donald Trump;Não-Caucasiano;6;6
+160;Donald Trump;Não-Caucasiano;6;2
+161;Hillary Clinton;Caucasiano;5;10
+162;Hillary Clinton;Caucasiano;5;9
+163;Donald Trump;Caucasiano;5;2
+164;Outros;Não-Caucasiano;5;5
+165;Outros;Não-Caucasiano;7;5
+166;Donald Trump;Caucasiano;8;1
+167;Donald Trump;Não-Caucasiano;1;6
