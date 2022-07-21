@@ -2,49 +2,49 @@
 ######################### Teste de Wilcoxon #########################
 
 
-# Passo 1: Carregar os pacotes que ser„o usados
+# Passo 1: Carregar os pacotes que ser√£o usados
 
-if(!require(dplyr)) install.packages("dplyr") # InstalaÁ„o do pacote caso n„o esteja instalado
+if(!require(dplyr)) install.packages("dplyr") # Instala√ß√£o do pacote caso n√£o esteja instalado
 library(dplyr)                                # Carregamento do pacote
-if(!require(dplyr)) install.packages("rstatix") # InstalaÁ„o do pacote caso n„o esteja instalado
+if(!require(rstatix)) install.packages("rstatix") # Instala√ß√£o do pacote caso n√£o esteja instalado
 library(rstatix)                                # Carregamento do pacote
 
 # Passo 2: Carregar o banco de dados
 
-# Importante: selecionar o diretÛrio de trabalho (working directory)
+# Importante: selecionar o diret√≥rio de trabalho (working directory)
 # Isso pode ser feito manualmente: Session > Set Working Directory > Choose Directory
-# Ou usando a linha de cÛdigo abaixo:
+# Ou usando a linha de c√≥digo abaixo:
 # setwd("C:/Users/ferna/Desktop")
 
 dados <- read.csv('Banco de Dados 4.csv', sep=";", dec=",") %>%
-  rename(Convulsoes_PT = Convulsıes_PT, Convulsoes_S1 = Convulsıes_S1,
-         Convulsoes_S6 = Convulsıes_S6, Genero = GÍnero)
+  rename(Convulsoes_PT = Convuls√µes_PT, Convulsoes_S1 = Convuls√µes_S1,
+         Convulsoes_S6 = Convuls√µes_S6, Genero = G√™nero)
 
-View(dados)                                # VisualizaÁ„o dos dados em janela separada
-glimpse(dados)                             # VisualizaÁ„o de um resumo dos dados
+View(dados)                                # Visualiza√ß√£o dos dados em janela separada
+glimpse(dados)                             # Visualiza√ß√£o de um resumo dos dados
 
 
-# Passo 3: RealizaÁ„o do teste de Wilcoxon
+# Passo 3: Realiza√ß√£o do teste de Wilcoxon
 
 wilcox.test(dados$Convulsoes_PT, dados$Convulsoes_S1, paired = TRUE)
 
 
-# ObservaÁ„o:
-  # O teste bicaudal È o default; caso deseje unicaudal, necess·rio incluir:
+# Observa√ß√£o:
+  # O teste bicaudal √© o default; caso deseje unicaudal, necess√°rio incluir:
     # alternative = "greater" ou alternative = "less"
   # Exemplo: wilcox.test(dados$Convulsoes_PT, dados$Convulsoes_S1,
               # paired = TRUE, alternative="greater")
-    # Nesse caso, o teste verificar· se È a mediana das Convulsoes_PT È maior que a
+    # Nesse caso, o teste verificar√° se √© a mediana das Convulsoes_PT √© maior que a
               # mediana das Convulsoes_S1
 
 
-# Passo 4: An·lise descritiva dos dados
+# Passo 4: An√°lise descritiva dos dados
 
 dados$dif <- dados$Convulsoes_PT - dados$Convulsoes_S1
 View(dados)
 
 dados %>% get_summary_stats(Convulsoes_PT, Convulsoes_S1, dif, type = "median_iqr")
 
-# Dados paramÈtricos?
+# Dados param√©tricos?
 # dados %>% group_by(Posicao_Sala) %>% 
 #  get_summary_stats(Nota_Biol, Nota_Hist, Nota_Fis, type = "mean_sd")
